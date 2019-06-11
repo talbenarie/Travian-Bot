@@ -65,7 +65,7 @@ class GameBot:
         self.enter_rally_point()
         self.enter_farm_list()
         for i in array:
-            self.send_farm_list(i)
+            self.send_farm_list(int(i))
 
     def submit(self):
         self.logger.submit()
