@@ -28,7 +28,7 @@ class GameBot:
         sleep(1)
 
     def enter_village(self):
-        self.browser.find_element_by_class_name("villageBuildings").click()
+        self.browser.get(self.url + "dorf2.php")
         self.logger.add_line("entering village")  # do something
         sleep(1)
 
