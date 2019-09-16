@@ -22,7 +22,7 @@ class GameBot:
         sleep(1)
 
     def login(self):
-        self.random_sleep(0, 600)
+        self.random_sleep(0, 300)
         self.browser.find_element_by_name("name").send_keys(self.username)
         self.browser.find_element_by_name("password").send_keys(self.password)
         self.browser.find_element_by_name("s1").click()  # Submit form
@@ -45,6 +45,7 @@ class GameBot:
         sleep(1)
 
     def send_farm_list(self, index):
+        self.random_sleep(1, 60)
         checkboxes = self.browser.find_elements_by_xpath("//input[contains(@class, 'markAll') "
                                                          "and contains(@class, 'check')]")
 
@@ -64,7 +65,7 @@ class GameBot:
 
     def send_attacks(self, array):
         self.enter_village()
-        self.random_sleep(0, 300)
+        self.random_sleep(0, 600)
         self.enter_rally_point()
         self.enter_farm_list()
         for i in array:
