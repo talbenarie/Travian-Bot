@@ -1,6 +1,7 @@
 from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import Logger
+import random
 from time import sleep
 
 
@@ -21,6 +22,7 @@ class GameBot:
         sleep(1)
 
     def login(self):
+        self.random_sleep(0, 600)
         self.browser.find_element_by_name("name").send_keys(self.username)
         self.browser.find_element_by_name("password").send_keys(self.password)
         self.browser.find_element_by_name("s1").click()  # Submit form
@@ -62,6 +64,7 @@ class GameBot:
 
     def send_attacks(self, array):
         self.enter_village()
+        self.random_sleep(0, 300)
         self.enter_rally_point()
         self.enter_farm_list()
         for i in array:
@@ -73,6 +76,11 @@ class GameBot:
     def submit_error(self):
         self.logger.add_line("There was an exception during runtime")
         self.logger.submit()
+
+    def random_sleep(self, min_num, max_num):
+        sleep_time = random.randint(min_num, max_num)
+        self.logger.add_line("sleeping for extra " + str(sleep_time) + " seconds")
+        sleep(sleep_time)
 
     @staticmethod
     def get_raid_text(lang):
