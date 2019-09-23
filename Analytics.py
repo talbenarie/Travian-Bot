@@ -9,6 +9,9 @@ class Analytics:
 
     def __init__(self, name="analytics"):
         self.filename = name + self.file_suffix
+        self.text = ""
+
+    def start(self):
         self.text = "\n" + self.line_diff + "\n"
         self.add_line("time~" + str(datetime.now()))
 

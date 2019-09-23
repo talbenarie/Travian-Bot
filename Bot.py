@@ -48,6 +48,7 @@ class GameBot:
             self.raid_analytics.add_info(col)
 
     def record_raider_rank(self):
+        self.raid_analytics.start()
         self.enter_top_players()
         self.grab_raider_table()
         self.raid_analytics.submit()
