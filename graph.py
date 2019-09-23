@@ -1,10 +1,12 @@
 import matplotlib.pyplot as plt
-from datetime import datetime
+import sys
 
 
-ranks = []
-scores = []
+scores_user1 = []
+scores_user2 = []
+scores_user3 = []
 timestamps = []
+users = []
 
 
 def load_file_contents(filename):
@@ -15,36 +17,69 @@ def load_file_contents(filename):
 
 
 def parse_file_contents(contents):
-    ts = 0  # minutes
+    timestamp = 0  # minutes
     tables = contents.split("#############")
     for table in tables:
         lines = table.splitlines()
-        for user in lines:
-            info = user.split(",")
+        for player in lines:
+            info = player.split(",")
             if len(info) < 3:
                 continue
+            score_earned = 0
+            arr = []
+            if info[1] == users[0] and len(scores_user1) < len(timestamps):
+                arr = scores_user1
+                if len(arr) > 0:
+                    score_earned = int(info[2]) - arr[-1]
+                arr.append(score_earned)
+            elif len(users) >= 2 and info[1] == users[1] and len(scores_user2) < len(timestamps):
+                arr = scores_user2
+                if len(arr) > 0:
+                    score_earned = int(info[2]) - arr[-1]
+                arr.append(score_earned)
+            elif len(users) >= 3 and info[1] == users[2] and len(scores_user3) < len(timestamps):
+                arr = scores_user3
+                if len(arr) > 0:
+                    score_earned = int(info[2]) - arr[-1]
+                arr.append(score_earned)
 
-            if info[1] == "TechnoTal":
-                ranks.append(info[0])
-                scores.append(int(info[2]))
-                timestamps.append(ts)
-                ts += 30
-                break
-            #info[0]  #rank
-            #info[1]  #name
-            #info[2]  #points
+        timestamps.append(timestamp)
+        timestamp += 30
 
 
 def main():
+    if sys.argv is None or len(sys.argv) < 2:
+        print("Must add at-least one system variable")
+        return
+    if len(sys.argv) >= 2:
+        users.append(sys.argv[1])
+    else:
+        print("Must add at-least one system variable")
+        return
+    if len(sys.argv) >= 3:
+        users.append(sys.argv[2])
+    if len(sys.argv) >= 4:
+        users.append(sys.argv[3])
+
     contents = load_file_contents("raid_analytics.txt")
     parse_file_contents(contents)
 
-    x = timestamps #  [1, 2, 3, 4, 5]  #date
-    y = scores # [10, 1000, 5000, 1000000, 500000]  #value
+    while len(timestamps) > len(scores_user1):
+        timestamps.pop(- 1)
 
-    plt.plot(x, y)
-    plt.ylabel('Resources Raided')
-    plt.xlabel('Minutes since raiding is recorded')
+    print(timestamps)
+    plt.plot(timestamps, scores_user1)
+
+    if len(scores_user2) > 0:
+        plt.plot(timestamps, scores_user2)
+
+    if len(scores_user3) > 0:
+        plt.plot(timestamps, scores_user3)
+
+    plt.legend(users)
+    plt.title('Resources Raided (Hourly)')
+    plt.ylabel('Resources')
+    plt.xlabel('Timestamp')
     plt.show()
 
 
