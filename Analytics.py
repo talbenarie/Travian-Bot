@@ -4,7 +4,7 @@ import codecs
 
 class Analytics:
     line_diff = "#############"
-    line_breaker = "~"
+    line_breaker = ","
     file_suffix = ".txt"
 
     def __init__(self, name="analytics"):
@@ -13,12 +13,23 @@ class Analytics:
 
     def start(self):
         self.text = "\n" + self.line_diff + "\n"
-        self.add_line("time~" + str(datetime.now()))
+        self.add_line(str(datetime.now()))
 
     def add_info(self, arr):
+        if len(arr) == 1:
+            return
+
         txt = ""
-        for i in arr:
-            txt += i.text + self.line_breaker
+        for i in range(len(arr)):
+            if i == 0:
+                s = arr[i].text
+                s.replace(".", "")
+                s.replace(" ", "")
+                txt += str(int(float(s)))
+            else:
+                txt += arr[i].text
+            if i != len(arr) - 1:
+                txt += self.line_breaker
 
         self.add_line(txt)
 
