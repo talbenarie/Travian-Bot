@@ -12,7 +12,7 @@ class Analytics:
         self.text = ""
 
     def start(self):
-        self.text = "\n" + self.line_diff + "\n"
+        self.text = self.line_diff + "\n"
         self.add_line(str(datetime.now()))
 
     def add_info(self, arr):
