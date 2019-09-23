@@ -19,6 +19,7 @@ def main():
     try:
         bot.start()
         bot.login()
+        bot.record_raider_rank()
         bot.send_attacks(targets)
         bot.submit()
     except ElementClickInterceptedException:

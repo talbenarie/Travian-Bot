@@ -2,13 +2,18 @@ from selenium import webdriver
 from selenium.webdriver.common.keys import Keys
 import Logger
 import random
+import Analytics
 from time import sleep
+
+
+release = True  # if release = false means its being tested, bot wont sleep
 
 
 class GameBot:
     browser = None
     executable_path = "source/webdriver/chromedriver"
     logger = Logger.Logger("Logger")
+    raid_analytics = Analytics.Analytics("raid_analytics")
 
     def __init__(self, url, username, password, lang="en"):
         self.url = url
@@ -28,6 +33,24 @@ class GameBot:
         self.browser.find_element_by_name("s1").click()  # Submit form
         self.logger.add_line("Logging into: " + self.username)
         sleep(1)
+
+    def enter_top_players(self):
+        self.browser.get(self.url + "statistiken.php?id=0&idSub=3")
+        self.logger.add_line("entering top players")
+        sleep(1)
+
+    def grab_raider_table(self):
+        table = self.browser.find_element_by_id("top10_raiders")  # raiders table
+        rows = table.find_elements_by_tag_name("tr")  # teg all of the rows
+        rows.pop(0)
+        for row in rows:
+            col = row.find_elements_by_tag_name("td")
+            self.raid_analytics.add_info(col)
+
+    def record_raider_rank(self):
+        self.enter_top_players()
+        self.grab_raider_table()
+        self.raid_analytics.submit()
 
     def enter_village(self):
         self.browser.get(self.url + "dorf2.php")
@@ -79,6 +102,8 @@ class GameBot:
         self.logger.submit()
 
     def random_sleep(self, min_num, max_num):
+        if not release:
+            return
         sleep_time = random.randint(min_num, max_num)
         self.logger.add_line("sleeping for extra " + str(sleep_time) + " seconds")
         sleep(sleep_time)
@@ -89,8 +114,4 @@ class GameBot:
             return "Start raid"
         elif lang == "he":
             return "שלח בזיזה"
-
-
-
-
 
