@@ -5,7 +5,7 @@ import codecs
 class Analytics:
     line_diff = "#############"
     line_breaker = "~"
-    file_suffix = ".log"
+    file_suffix = ".txt"
 
     def __init__(self, name="analytics"):
         self.filename = name + self.file_suffix
@@ -21,7 +21,6 @@ class Analytics:
 
     def add_line(self, line):
         self.text += str(line) + "\n"
-        print(str(line))
 
     def submit(self):
         file = codecs.open(self.filename, "a+", "utf-8")
