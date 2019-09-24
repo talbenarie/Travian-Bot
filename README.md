@@ -21,4 +21,25 @@ To make it easier, we are recommending creating batch file (ends with .bat) and 
 ### Note: Do NOT use smart farmlist. use the old one which shows all of the farm lists open when entering the farm lists. 
 ### Note: Your current village MUST have rally point to run the farm lists, because the bot enters the rally point of current village. 
  
+ 
+ 
+# Analytics 
+## Records
+New Analytics were added to the bot. Bot will now go to top raiders and record raiding list every time before attacking. 
+Raiding results will be saved in txt format file (raiding_analytics.txt) 
+
+## Graph 
+Users will be able to see graph showing their raids. 
+It includes two features, total raid and hourly raid. 
+
+## Installation 
+Download matplotlib package using the command: ```pip install matplotlib``` 
+ 
+## Usage 
+To see the graphs run the command 
+```
+python graph.py username
+```
+ 
+ 
 Have fun! 
