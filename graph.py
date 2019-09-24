@@ -2,11 +2,10 @@ import matplotlib.pyplot as plt
 import sys
 
 
-scores_user1 = []
-scores_user2 = []
-scores_user3 = []
-timestamps = []
-users = []
+scores = []  # represents the raiding scores
+gaps = []  # represents the resources raided in one hour
+timestamps = []  # timestamps
+users = []  # the users in the graph
 
 
 def load_file_contents(filename):
@@ -21,25 +20,21 @@ def parse_file_contents(contents):
     tables = contents.split("#############")
     for table in tables:
         lines = table.splitlines()
+
         for player in lines:
             info = player.split(",")
             if len(info) < 3:
                 continue
-            if info[1] == users[0] and len(scores_user1) < len(timestamps):
-                arr = scores_user1
+            if info[1] == users[0]:
+                prev_score = scores[-1] if len(scores) > 0 else 0
                 score_earned = int(info[2])
-                arr.append(score_earned)
-            elif len(users) >= 2 and info[1] == users[1] and len(scores_user2) < len(timestamps):
-                arr = scores_user2
-                score_earned = int(info[2])
-                arr.append(score_earned)
-            elif len(users) >= 3 and info[1] == users[2] and len(scores_user3) < len(timestamps):
-                arr = scores_user3
-                score_earned = int(info[2])
-                arr.append(score_earned)
+                scores.append(score_earned)
+                gaps.append(score_earned - prev_score)
+                timestamps.append(timestamp)
+                timestamp += 30
+                break
 
-        timestamps.append(timestamp)
-        timestamp += 30
+
 
 
 def main():
@@ -51,25 +46,18 @@ def main():
     else:
         print("Must add at-least one system variable")
         return
-    if len(sys.argv) >= 3:
-        users.append(sys.argv[2])
-    if len(sys.argv) >= 4:
-        users.append(sys.argv[3])
 
     contents = load_file_contents("raid_analytics.txt")
     parse_file_contents(contents)
 
-    while len(timestamps) > len(scores_user1):
-        timestamps.pop(- 1)
+    print(scores)
+    print(timestamps)
 
-    plt.plot(timestamps, scores_user1)
+    gaps.pop(0)
+    scores.pop(0)
+    timestamps.pop(0)
 
-    if len(scores_user2) > 0:
-        plt.plot(timestamps, scores_user2)
-
-    if len(scores_user3) > 0:
-        plt.plot(timestamps, scores_user3)
-
+    plt.plot(timestamps, gaps)
     plt.legend(users)
     plt.title('Resources Raided (Total)')
     plt.ylabel('Resources')
