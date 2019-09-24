@@ -25,22 +25,17 @@ def parse_file_contents(contents):
             info = player.split(",")
             if len(info) < 3:
                 continue
-            score_earned = 0
-            arr = []
             if info[1] == users[0] and len(scores_user1) < len(timestamps):
                 arr = scores_user1
-                if len(arr) > 0:
-                    score_earned = int(info[2]) - arr[-1]
+                score_earned = int(info[2])
                 arr.append(score_earned)
             elif len(users) >= 2 and info[1] == users[1] and len(scores_user2) < len(timestamps):
                 arr = scores_user2
-                if len(arr) > 0:
-                    score_earned = int(info[2]) - arr[-1]
+                score_earned = int(info[2])
                 arr.append(score_earned)
             elif len(users) >= 3 and info[1] == users[2] and len(scores_user3) < len(timestamps):
                 arr = scores_user3
-                if len(arr) > 0:
-                    score_earned = int(info[2]) - arr[-1]
+                score_earned = int(info[2])
                 arr.append(score_earned)
 
         timestamps.append(timestamp)
@@ -67,7 +62,6 @@ def main():
     while len(timestamps) > len(scores_user1):
         timestamps.pop(- 1)
 
-    print(timestamps)
     plt.plot(timestamps, scores_user1)
 
     if len(scores_user2) > 0:
@@ -77,9 +71,9 @@ def main():
         plt.plot(timestamps, scores_user3)
 
     plt.legend(users)
-    plt.title('Resources Raided (Hourly)')
+    plt.title('Resources Raided (Total)')
     plt.ylabel('Resources')
-    plt.xlabel('Timestamp')
+    plt.xlabel('Timestamp (Minutes)')
     plt.show()
 
 
