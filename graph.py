@@ -57,9 +57,13 @@ def main():
     scores.pop(0)
     timestamps.pop(0)
 
+    plt.subplot(2, 1, 1)
     plt.plot(timestamps, gaps)
-    plt.legend(users)
-    plt.title('Resources Raided (Total)')
+    plt.title('Resources Raided (Raid per 30m)')
+    plt.ylabel('Resources')
+
+    plt.subplot(2, 1, 2)
+    plt.plot(timestamps, scores)
     plt.ylabel('Resources')
     plt.xlabel('Timestamp (Minutes)')
     plt.show()
