@@ -6,6 +6,7 @@ scores = []  # represents the raiding scores
 gaps = []  # represents the resources raided in one hour
 timestamps = []  # timestamps
 users = []  # the users in the graph
+break_each = 60  # show raids per x minutes
 
 
 def load_file_contents(filename):
@@ -28,9 +29,10 @@ def parse_file_contents(contents):
             if info[1] == users[0]:
                 prev_score = scores[-1] if len(scores) > 0 else 0
                 score_earned = int(info[2])
-                scores.append(score_earned)
-                gaps.append(score_earned - prev_score)
-                timestamps.append(timestamp)
+                if timestamp % break_each == 0:
+                    scores.append(score_earned)
+                    gaps.append(score_earned - prev_score)
+                    timestamps.append(timestamp)
                 timestamp += 30
                 break
 
@@ -57,15 +59,18 @@ def main():
     scores.pop(0)
     timestamps.pop(0)
 
+    for i in range(len(timestamps)):
+        timestamps[i] /= break_each
+
     plt.subplot(2, 1, 1)
     plt.plot(timestamps, gaps)
-    plt.title('Resources Raided (Raid per 30m)')
+    plt.title('Resources Raided (Raid per hour)')
     plt.ylabel('Resources')
 
     plt.subplot(2, 1, 2)
     plt.plot(timestamps, scores)
     plt.ylabel('Resources')
-    plt.xlabel('Timestamp (Minutes)')
+    plt.xlabel('Timestamp (Hours)')
     plt.show()
 
 
