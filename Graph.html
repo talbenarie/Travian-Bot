@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="UTF-8">
+<script>
+window.onload = function() {
+
+var chart = new CanvasJS.Chart("chartContainer", {
+	animationEnabled: true,
+	title: {
+		text: "Hourly Resource Raiding"
+	},
+	axisX: {
+		title: "Time"
+	},
+	axisY: {
+		title: "Resources",
+	},
+	data: [{
+		type: "line",
+		name: "CPU Utilization",
+		connectNullData: true,
+		xValueType: "dateTime",
+		xValueFormatString: "DD MMM hh:mm TT",
+		yValueFormatString: "###,###,###",
+		dataPoints: [
+			{ x: 1501048673000, y: 223000 },
+			{ x: 1501052273000, y: 270555 },
+			{ x: 1501055873000, y: 260877 },
+			{ x: 1501059473000, y: 240565 },
+			{ x: 1501063073000, y: 270866 },
+			{ x: 1501066673000, y: 290774 },
+			{ x: 1501070273000, y: 330508 },
+			{ x: 1501073873000, y: 180577 },
+			{ x: 1501077473000, y: 150918 },
+			{ x: 1501081073000, y: 223455 },
+			{ x: 1501084673000, y: 100314 },
+			{ x: 1501088273000, y: 100574 },
+			{ x: 1501091873000, y: 140422 },
+			{ x: 1501095473000, y: 180576 },
+			{ x: 1501099073000, y: 220342 },
+			{ x: 1501102673000, y: 220836 },
+			{ x: 1501106273000, y: 230220 },
+			{ x: 1501109873000, y: 230594 },
+			{ x: 1501113473000, y: 240596 },
+			{ x: 1501117073000, y: 310947 },
+			{ x: 1501120673000, y: 310142 }
+		]
+	}]
+});
+chart.render();
+
+}
+</script>
+</head>
+<body>
+<div id="chartContainer" style="height: 370px; max-width: 920px; margin: 0px auto;"></div>
+<script src="graph/canvasjs.min.js"></script>
+</body>
+</html>
