@@ -13,7 +13,7 @@ class GameBot:
     browser = None
     executable_path = "source/webdriver/chromedriver"
     logger = Logger.Logger("Logger")
-    raid_analytics = Analytics.Analytics("raid_analytics")
+    raid_analytics = Analytics.Analytics()
 
     def __init__(self, url, username, password, lang="en"):
         self.url = url
@@ -40,18 +40,23 @@ class GameBot:
         sleep(1)
 
     def grab_raider_table(self):
-        table = self.browser.find_element_by_id("top10_raiders")  # raiders table
-        rows = table.find_elements_by_tag_name("tr")  # teg all of the rows
-        rows.pop(0)
+        # raiders table
+        table = self.browser.find_element_by_id("top10_raiders")
+        # take all table contents
+        rows = table.find_elements_by_tag_name("tr")
+        # get the last col (where is the current user's info
+        col = rows[-1].find_elements_by_tag_name("td")
+        # submit it in database
+        self.raid_analytics.add_info(col)
+        '''
         for row in rows:
             col = row.find_elements_by_tag_name("td")
             self.raid_analytics.add_info(col)
+        '''
 
     def record_raider_rank(self):
-        self.raid_analytics.start()
         self.enter_top_players()
         self.grab_raider_table()
-        self.raid_analytics.submit()
 
     def enter_village(self):
         self.browser.get(self.url + "dorf2.php")
