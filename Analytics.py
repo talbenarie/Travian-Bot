@@ -20,8 +20,9 @@ class Analytics:
         for i in range(len(arr)):
             if i == 0:
                 s = arr[i].text
-                s.replace(".", "")
-                s.replace(" ", "")
+                if s == "?":
+                    s = "0"
+
                 rank = str(int(float(s)))
             elif i == 1:
                 name = arr[i].text
