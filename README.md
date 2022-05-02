@@ -13,35 +13,11 @@ To run the bot you should use the following format:
 ```
 python program.py "https://serverurl.domain" "username" "password" "0,1,2,3" 50 1000
 ```
-Wherea https://serverurl.domain is the game's default link, username is your username and password is your pass. 
-The parameters 0,1,2 represents the list indexes that the program should send (farm list) [index starts at 0 and ends with length minus one] 
-The parameters 50 and 1000 state the minimum and maximum seconds the bot will randomlly time itself to seld farm list.
-For example: to randomlly send farm list between 30m to 60m you will input 1800 3600
+- https://serverurl.domain is the game's default link, username is your username and password is your pass. 
+- The parameters 0,1,2,3 represents the list indexes that the program should send (farm list) [index starts at 0 and ends with length minus one].
+- The parameters 50 and 1000 state the minimum and maximum seconds the bot will randomlly time itself to seld farm list.
+- For example: to randomlly send farm list between 30m to 60m you will input 1800 3600.
+ 
  
 To make it easier, we are recommending creating batch file (ends with .bat) and write the following command.
 ### Note: Your current village MUST have rally point to run the farm lists, because the bot enters the rally point of current village. 
- 
- 
- 
- # Outdated - Not Working in 2022
- 
-# Analytics 
-## Records
-New Analytics were added to the bot. Bot will now go to top raiders and record raiding list every time before attacking. 
-Raiding results will be saved in txt format file (raiding_analytics.txt) 
-
-## Graph 
-Users will be able to see graph showing their raids. 
-It includes two features, total raid and hourly raid. 
-
-## Installation 
-Download matplotlib package using the command: ```pip install matplotlib``` 
- 
-## Usage 
-To see the graphs run the command 
-```
-python graph.py username
-```
- 
- 
-Have fun! 
