@@ -1,27 +1,29 @@
 # Travian-Bot
 
 ## Installation:
-To run the bot the user requires to have both Python (recommended 3.6) and Selenium (for the bot to work). 
-Download selenium using pip install selenium. 
- 
-## Webdrivers: 
-The bot uses chrome webdriver which is located in source/webdrivers/chromedriver however this is for a spesific version of chrome. 
-If you are having troubles running it, recommended to dowload the newest version for you. 
+To run the bot the user requires to have both Python (3.10), Selenium and undetected_chromedriver.
+Download required libraries run:
+```
+pip install selenium
+pip install undetected_chromedriver
+```
  
 ## Easy Run: 
 To run the bot you should use the following format: 
 ```
-python program.py https://serverurl.domain username password lang 0,1,2
+python program.py "https://serverurl.domain" "username" "password" "0,1,2,3" 50 1000
 ```
-whereas https://serverurl.domain is the game's default link, username is your username and password is your pass. 
-the parameters 0,1,2 represents the list indexes that the program should send (farm list) [index starts at 0 and ends with length minus one] 
+Wherea https://serverurl.domain is the game's default link, username is your username and password is your pass. 
+The parameters 0,1,2 represents the list indexes that the program should send (farm list) [index starts at 0 and ends with length minus one] 
+The parameters 50 and 1000 state the minimum and maximum seconds the bot will randomlly time itself to seld farm list.
+For example: to randomlly send farm list between 30m to 60m you will input 1800 3600
  
-To make it easier, we are recommending creating batch file (ends with .bat) and write the following command: 
-  
-### Note: Do NOT use smart farmlist. use the old one which shows all of the farm lists open when entering the farm lists. 
+To make it easier, we are recommending creating batch file (ends with .bat) and write the following command.
 ### Note: Your current village MUST have rally point to run the farm lists, because the bot enters the rally point of current village. 
  
  
+ 
+ # Outdated - Not Working in 2022
  
 # Analytics 
 ## Records
