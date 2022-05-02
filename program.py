@@ -1,33 +1,31 @@
-import Bot
+from random import randrange
+
+from application import Bot
 from time import sleep
-from selenium.common.exceptions import ElementClickInterceptedException
 import sys
 
 
 def main():
-    if len(sys.argv) > 6:
+    if len(sys.argv) > 8:
         print("You did not write the correct system variables")
         return
 
     url = sys.argv[1]
     username = sys.argv[2]
     password = sys.argv[3]
-    language = sys.argv[4]
-    targets = sys.argv[5].split(",")
+    targets = sys.argv[4].split(",")
+    min = sys.argv[5]
+    max = sys.argv[6]
 
-    bot = Bot.GameBot(url, username, password, language)
-    try:
-        bot.start()
-        bot.login()
-        bot.record_raider_rank()
-        bot.send_attacks(targets)
-        bot.submit()
-    except ElementClickInterceptedException:
-        bot.submitError()
+    bot = Bot.Bot(url, username, password)
+    bot.login()
+    bot.go_home()
 
-    sleep(5)
+    while True:
+        bot.send_list(targets, randrange(int(min), int(max)))
+        bot.go_home()
 
 
 if __name__ == "__main__":
     main()
-
+    sleep(5)
