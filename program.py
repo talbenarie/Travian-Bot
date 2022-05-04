@@ -19,11 +19,30 @@ def main():
 
     bot = Bot.Bot(url, username, password)
     bot.login()
+
+    if not bot.is_logged():
+        print('Incorrect username and password')
+        return
+
     bot.go_home()
 
     while True:
-        bot.send_list(targets, randrange(int(min), int(max)))
-        bot.go_home()
+        try:
+            bot.send_list(targets)
+        except Exception as e:
+            print('Failed to send farm list')
+            if not bot.is_logged():
+                bot.login()
+
+        # stay inside farm list for 1/3 of the delay time (to see attack send list)
+        delay = randrange(int(min), int(max))
+        partial_delay = delay / 3
+        delay -= partial_delay
+
+        # sleep inside farm list, after that go to village and rest inside
+        sleep(partial_delay)
+        bot.go_village()
+        sleep(delay)
 
 
 if __name__ == "__main__":

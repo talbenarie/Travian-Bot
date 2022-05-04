@@ -4,6 +4,13 @@ from application import Chrome
 from time import sleep
 from datetime import datetime
 
+
+def get_time():
+    now = datetime.now()
+    current_time = now.strftime("%H:%M:%S")
+    return current_time
+
+
 class Bot:
     def __init__(self, url, username, password):
         self.url = url
@@ -23,8 +30,10 @@ class Bot:
     def go_home(self):
         self.browser.goto(self.url + 'dorf1.php')
 
-    def send_list(self, list, delay):
-        sleep(delay)
+    def go_village(self):
+        self.browser.goto(self.url + 'dorf2.php')
+
+    def send_list(self, list):
         self.browser.goto(self.url + 'build.php?id=39&gid=16&tt=99')
         sleep(randrange(3, 5))
         buttons = self.browser.get_buttons('textButtonV1.green')
@@ -34,11 +43,7 @@ class Bot:
             print('List #' + str(index) + ' were sent')
             sleep(randrange(3, 5))
 
+        print(get_time() + ': Lists were sent')
 
-        print(self.get_time() + ': Lists were sent')
-
-
-    def get_time(self):
-        now = datetime.now()
-        current_time = now.strftime("%H:%M:%S")
-        return current_time
+    def is_logged(self):
+        return self.browser.current_url() != self.url

@@ -21,3 +21,6 @@ class Chrome:
 
     def get_buttons(self, class_name):
         return self.browser.find_elements(by=By.CLASS_NAME, value=class_name)
+
+    def current_url(self):
+        return self.browser.current_url
