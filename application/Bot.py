@@ -33,6 +33,10 @@ class Bot:
     def go_village(self):
         self.browser.goto(self.url + 'dorf2.php')
 
+    def go_farmlist(self):
+        self.browser.goto(self.url + 'build.php?id=39&gid=16&tt=99')
+        sleep(randrange(3, 5))
+
     def send_list(self, list):
         self.browser.goto(self.url + 'build.php?id=39&gid=16&tt=99')
         sleep(randrange(3, 5))
