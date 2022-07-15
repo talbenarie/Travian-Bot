@@ -40,7 +40,7 @@ class Bot:
     def send_list(self, list):
         self.browser.goto(self.url + 'build.php?id=39&gid=16&tt=99')
         sleep(randrange(3, 5))
-        buttons = self.browser.get_buttons('textButtonV1.green')
+        buttons = self.browser.get_buttons('textButtonV1.green.startButton')
         for i in range(len(list)):
             index = int(list[i])
             buttons[index].click()

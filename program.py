@@ -1,6 +1,7 @@
 from random import randrange
 
 from application import Bot
+from application.Bot import get_time
 from time import sleep
 import sys
 
@@ -29,12 +30,12 @@ def main():
     while True:
         failed = False
 
-        print('Attacking..')
+        print(get_time() + ' Attacking..')
 
         try:
             bot.send_list(targets)
         except Exception as e:
-            print('Failed to send farm list')
+            print(get_time() + ' Failed to send farm list')
             if not bot.is_logged():
                 bot.login()
             failed = True
@@ -61,14 +62,14 @@ def main():
         # execute orders
         sleep(delay_list_post_attack)
 
-        print('Rest time begins, you have got ' + str(delay_village + delay_home) + " seconds to do stuff")
+        print(get_time() + ' Rest time begins, you have got ' + str(delay_village + delay_home) + " seconds to do stuff")
         bot.go_village()
         sleep(delay_village)
         bot.go_home()
         sleep(delay_home)
 
         # enter farm list without attacking, to show user farmlist will be sent soon
-        print('Rest is over, preparing attack in ' + str(delay_list_pre_attack) + " seconds")
+        print(get_time() + ' Rest is over, preparing attack in ' + str(delay_list_pre_attack) + " seconds")
         bot.go_farmlist()
         sleep(delay_list_pre_attack)
 
